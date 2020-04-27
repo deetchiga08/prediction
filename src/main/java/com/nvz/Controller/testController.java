@@ -18,6 +18,7 @@ public class testController {
     {
         String s="deetchiga";
         System.out.println("sample test controlller for swagger");
+	System.out.println("test");
         return s;
     }
 }
