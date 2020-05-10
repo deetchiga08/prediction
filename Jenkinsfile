@@ -1,6 +1,6 @@
 node
 {
-    stage ("SCM checkout'){
+    stage ('SCM checkout'){
            
            git 'https://https://github.com/deetchiga08/prediction'
            }
