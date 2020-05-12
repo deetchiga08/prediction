@@ -7,6 +7,7 @@ def copyWar = "scp -o StrictHostKeyChecking=no target/prediction-portal-api.war 
 stage('SCM Checkout'){
 git branch: 'master',
 url: 'https://github.com/deetchiga08/prediction'
+
 }
 stage('Maven Build'){
 def mvnHome = tool name: 'maven', type: 'maven'
@@ -14,7 +15,6 @@ sh "mvn clean package"
 }
 
 stage('Deploy Dev'){
-sh 'mv target/prediction-portal-api*.war target/prediction-portal-api.war'
 
 sshagent(['tomcat-dev']) {
 sh "${stopTomcat}"
