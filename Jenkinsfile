@@ -1,9 +1,4 @@
 node{
-def tomcatIp = '117.218.245.217'
-def tomcatUser = 'brillersys'
-def stopTomcat = 'ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/shutdown.sh'
-def startTomcat = 'ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/startup.sh'
-def copyWar = 'scp -o StrictHostKeyChecking=no target/prediction-portal-api.war ${tomcatUser}@${tomcatIp}:var/lib/tomcat8/webapps/'
 stage('SCM Checkout'){
 git branch: 'master',
 url: 'https://github.com/deetchiga08/prediction'
@@ -13,13 +8,17 @@ stage('Maven Build'){
 def mvnHome = tool name: 'maven', type: 'maven'
 sh "mvn clean package"
 }
+stage('deploy-dev'){
+def tomcatDevIp = '117.218.245.217'
+def tomcatHome = '/var/lib/tomcat8/'
+def webApps = tomcatHome+'webapps/'
+def tomcatStart = "${tomcatHome}bin/startup.sh"
+def tomcatStop = "${tomcatHome}bin/shutdown.sh"
 
-stage('Deploy Dev'){
-
-sshagent(['tomcat-dev']) {
-sh "${stopTomcat}"
-sh "${copyWar}"
-sh "${startTomcat}"
+sshagent (credentials: ['tomcat-deploy']) {
+sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/deploytotomcat/target/prediction-portal-api*.war brillersys@${tomcatDevIp}:${webApps}prediction-portal-api.war"
+sh "ssh brillersys@${tomcatDevIp} ${tomcatStop}"
+sh "ssh brillersys@${tomcatDevIp} ${tomcatStart}"
 }
 }
 }
