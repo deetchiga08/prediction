@@ -16,7 +16,7 @@ def tomcatStart = "${tomcatHome}bin/startup.sh"
 def tomcatStop = "${tomcatHome}bin/shutdown.sh"
 
 sshagent (credentials: ['tomcat-deploy']) {
-sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/deploytotomcat/target/prediction-portal-api*.war brillersys@${tomcatDevIp}:${webApps}prediction-portal-api.war"
+sh "scp -o StrictHostKeyChecking=no /target/prediction-portal-api*.war brillersys@${tomcatDevIp}:${webApps}prediction-portal-api.war"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStop}"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStart}"
 }
