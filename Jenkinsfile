@@ -1,16 +1,26 @@
 node{
-   stage('SCM Checkout'){
-     git 'https://github.com/deetchiga08/prediction'
-   }
-   stage('Compile-Package'){
-      // Get maven home path
-      def mvnHome =  tool name: 'maven', type: 'maven'  
-      sh "${mvnHome}/opt/maven package"
-   }
-   stage('Deploy to Tomcat'){
-      
-      sshagent(['tomcat-deploy']) {
-         sh 'scp -o StrictHostKeyChecking=no target/*.war brillersys@117.218.245.217:/var/lib/tomcat8/webapps/'
-      }
-   }
+def tomcatIp = '117.218.245.217'
+def tomcatUser = 'deployer'
+def stopTomcat = "ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/shutdown.sh"
+def startTomcat = "ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/startup.sh"
+def copyWar = "scp -o StrictHostKeyChecking=no target/*.war ${tomcatUser}@${tomcatIp}:var/lib/tomcat8/webapps/"
+stage('SCM Checkout'){
+git branch: 'master',
+credentialsId: 'deetchiga08',
+url: 'https://github.com/deetchiga08/prediction'
+}
+stage('Maven Build'){
+def mvnHome = tool name: 'maven', type: 'maven'
+sh "${mvnHome}/opt/maven clean package"
+}
+
+stage('Deploy Dev'){
+sh 'mv target/*.war target/*.war'
+
+sshagent(['tomcat-dev']) {
+sh "${stopTomcat}"
+sh "${copyWar}"
+sh "${startTomcat}"
+}
+}
 }
