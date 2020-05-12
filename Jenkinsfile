@@ -6,12 +6,11 @@ def startTomcat = "ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/startup.sh
 def copyWar = "scp -o StrictHostKeyChecking=no target/*.war ${tomcatUser}@${tomcatIp}:var/lib/tomcat8/webapps/"
 stage('SCM Checkout'){
 git branch: 'master',
-credentialsId: 'deetchiga08',
 url: 'https://github.com/deetchiga08/prediction'
 }
 stage('Maven Build'){
 def mvnHome = tool name: 'maven', type: 'maven'
-sh "${mvnHome} clean package"
+sh "mvn clean package"
 }
 
 stage('Deploy Dev'){
