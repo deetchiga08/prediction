@@ -1,6 +1,6 @@
 node{
 def tomcatIp = '117.218.245.217'
-def tomcatUser = 'deployer'
+def tomcatUser = 'brillersys'
 def stopTomcat = "ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/shutdown.sh"
 def startTomcat = "ssh ${tomcatUser}@${tomcatIp} /var/lib/tomcat8/bin/startup.sh"
 def copyWar = "scp -o StrictHostKeyChecking=no target/prediction-portal-api.war ${tomcatUser}@${tomcatIp}:var/lib/tomcat8/webapps/"
