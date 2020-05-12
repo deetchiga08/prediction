@@ -11,7 +11,7 @@ url: 'https://github.com/deetchiga08/prediction'
 }
 stage('Maven Build'){
 def mvnHome = tool name: 'maven', type: 'maven'
-sh "${mvnHome}/opt/maven clean package"
+sh "${mvnHome} clean package"
 }
 
 stage('Deploy Dev'){
