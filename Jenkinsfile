@@ -11,7 +11,7 @@ node{
    }
    stage('Maven Build'){
         def mvnHome = tool name: 'maven 3.6.0', type: 'maven'
-		sh "mvn clean package"
+	   sh "${mvnHome}/usr/share/maven clean package"
    }
    
    stage('Deploy Dev'){
