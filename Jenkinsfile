@@ -14,8 +14,7 @@ node{
    }
    
    stage('Deploy Dev'){
-	   sh 'mv target/prediction-portal-api.war target/prediction-portal-api.war' 
-	   
+	      
        sshagent(['deploy-tomcat']) {
 			sh "${stopTomcat}"
 			sh "${copyWar}"
