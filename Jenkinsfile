@@ -3,7 +3,8 @@ try{
     stage('Git Checkout'){
 		git credentialsId: 'deetchiga08', 
 		    url: 'https://github.com/deetchiga08/prediction',
-			}
+			
+		}
 	
 	
 	
