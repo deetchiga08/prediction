@@ -3,8 +3,9 @@ try{
     stage('Git Checkout'){
 		git credentialsId: 'deetchiga08', 
 		    url: 'https://github.com/deetchiga08/prediction',
-			
-	}
+			}
+	
+	
 	
 	stage('Maven Build'){
 		sh 'mvn clean package'
@@ -16,4 +17,5 @@ try{
 		    sh 'scp target/prediction-portal-api.war brillersys@117.218.245.217:/var/lib/tomcat8/webapps/'
 		    sh 'ssh brillersys@117.218.245.217 sudo service tomcat restart'
 		}
+	}
 	}
