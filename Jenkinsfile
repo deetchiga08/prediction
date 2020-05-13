@@ -6,8 +6,7 @@ node{
    def copyWar = "scp -o StrictHostKeyChecking=no target/prediction-portal-api.war ${tomcatUser}@${tomcatIp}:/var/lib/tomcat8/webapps/"
    stage('SCM Checkout'){
         git branch: 'master', 
-	        credentialsId: 'javahometech',
-	        url: 'https://github.com/javahometech/myweb'
+	      url: 'https://github.com/deetchiga08/prediction'
    }
    stage('Maven Build'){
         def mvnHome = tool name: 'maven 3.6.0', type: 'maven'
