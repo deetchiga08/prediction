@@ -5,7 +5,7 @@ url: 'https://github.com/deetchiga08/prediction'
 
 }
 stage('Maven Build'){
-def mvnHome = tool name: 'maven', type: 'maven'
+def mvnHome = tool name: 'maven 3.6.0', type: 'maven'
 sh "mvn clean package"
 }
 stage('deploy-dev'){
@@ -15,7 +15,7 @@ def webApps = tomcatHome+'webapps/'
 def tomcatStart = "${tomcatHome}bin/startup.sh"
 def tomcatStop = "${tomcatHome}bin/shutdown.sh"
 
-sshagent(['tomcat-deploy'])  {
+sshagent([sshagent(['376681d9-171f-49ce-b4fe-eef579064203']])  {
 sh "scp -o StrictHostKeyChecking=no /target/prediction-portal-api*.war brillersys@${tomcatDevIp}:${webApps}prediction-portal-api.war"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStop}"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStart}"
