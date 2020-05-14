@@ -15,7 +15,7 @@ def webApps = tomcatHome+'webapps/'
 def tomcatStart = "${tomcatHome}bin/startup.sh"
 def tomcatStop = "${tomcatHome}bin/shutdown.sh"
 
-sshagent(['tomcat-deploy'])  {
+sshagent(['dev-tomcat'])  {
 sh "scp -o StrictHostKeyChecking=no /target/prediction-portal-api*.war brillersys@${tomcatDevIp}:${webApps}prediction-portal-api.war"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStop}"
 sh "ssh brillersys@${tomcatDevIp} ${tomcatStart}"
