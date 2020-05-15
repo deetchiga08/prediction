@@ -9,7 +9,7 @@ node{
    }
    stage('Deploy to Tomcat'){
       
-      sshagent(credentials:['tomcat-deploy']) {
+      sshagent(credentials:['test']) {
          sh 'scp -o StrictHostKeyChecking=no target/*.war brillersys@117.218.245.217:/opt/tomcat/latest/webapps'
       }
    }
