@@ -12,7 +12,6 @@
 	<artifactId>prediction-portal-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>prediction-portal-api</name>
-	<packaging>war</packaging>
 	<description>Radiant application in spring boot</description>
 
 	<properties>
