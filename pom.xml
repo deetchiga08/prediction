@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.nvz</groupId>
 	<artifactId>prediction-portal-api</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>prediction-portal-api</name>
 	<description>Radiant application in spring boot</description>
